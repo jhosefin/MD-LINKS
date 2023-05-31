@@ -1,3 +1,7 @@
+//Antiguamente se utilizaba un fichero .eslintrc
+//sin extensión (que realmente era un YAML o JSON).
+// Sin embargo, ESLint marca esta posibilidad como obsoleta,
+// por lo que se recomienda utilizar una de las tres opciones js,yam,json.
 {
   "env": {
     "node": true
@@ -6,3 +10,4 @@
     "ecmaVersion": 8
   }
 }
+//https://lenguajejs.com/javascript/calidad-de-codigo/eslint/

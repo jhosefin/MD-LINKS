@@ -1,1 +1,0 @@
-![Repo Aiep 2](https://github.com/jhosefin/AIEP-Repo-Proyectos)

@@ -1,3 +1,3 @@
 const { MdLinks } = require("./index");
 
-MdLinks("/src/primer-reto.js", " validate");
+MdLinks("test-files",  { validate: true });

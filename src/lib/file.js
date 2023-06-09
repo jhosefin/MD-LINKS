@@ -21,9 +21,8 @@ function extractLinksFromFile(filePath) {
         }
 
         if (links.length === 0) {
-          console.log("No se encontraron enlaces en el archivo");
+          console.log("No se encontraron enlaces en el archivo: " + filePath);
         }
-
         resolve(links);
       }
     });

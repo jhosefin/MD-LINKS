@@ -2,43 +2,40 @@ const fs = require("fs");
 const path = require("path");
 
 function isFile(filePath) {
-  return new Promise((resolve) => {
-    fs.stat(filePath, (err, stats) => {
-      if (err) {
-        resolve(false);
-      } else {
-        resolve(stats.isFile());
-      }
-    });
-  });
+  try {
+    const stats = fs.statSync(filePath);
+    return stats.isFile();
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }
 
 function isDirectory(dirPath) {
-  return new Promise((resolve) => {
-    fs.stat(dirPath, (err, stats) => {
-      if (err) {
-        resolve(false);
-      } else {
-        resolve(stats.isDirectory());
-      }
-    });
-  });
+  try {
+    const stats = fs.statSync(dirPath);
+    return stats.isDirectory();
+  } catch (error) {
+    return false;
+  }
 }
 
 // leyendo paths del directorio de manera sincrona
 function readDirectoryRecursively(directorioPath) {
-  let arrayPathFiles = [];
-
   if (isFile(directorioPath)) {
-    arrayPathFiles.push(directorioPath);
+    if (searchMd(directorioPath)) {
+      return [directorioPath];
+    }
+    return [];
   } else {
     const files = fs.readdirSync(directorioPath);
+    let arrayPathFiles = [];
     files.forEach((file) => {
       const filePath = path.join(directorioPath, file);
       arrayPathFiles = arrayPathFiles.concat(readDirectoryRecursively(filePath));
     });
+    return arrayPathFiles;
   }
-  return arrayPathFiles;
 }
 
 // estrayendo archivos con extensión .md
@@ -46,6 +43,7 @@ function readDirectoryRecursively(directorioPath) {
 function searchMd(file) {
   return path.extname(file) === ".md";
 }
+
 
 module.exports = {
   isDirectory,

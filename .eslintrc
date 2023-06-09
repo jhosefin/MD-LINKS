@@ -5,6 +5,7 @@
 {
   "env": {
     "node": true,
+    "commonjs": true,
     "browser": true,
     "es2021": true
   },
@@ -12,8 +13,15 @@
     "ecmaVersion": 8,
     "sourceType": "module"
   },
-  "extends": "airbnb-base",
+  "extends":[
+  "airbnb-base",
+  "eslint:recommended",
+  "plugin:jest/recommended"
+  ],
   "overrides": [
+  ],
+    "plugins": [
+    "jest"
   ],
   "rules": {
     "indent": ["error", 2],

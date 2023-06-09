@@ -7,26 +7,24 @@ function isAbsolutePath(filePath) {
   });
 }
 
-function isPathValid(patho) {
+function isPathValid(filePath) {
   return new Promise((resolve) => {
-    fs.access(patho, (err) => {
+    fs.access(filePath, (err) => {
       resolve(!err);
     });
   });
 }
 
-function toAbsolute(route) {
-  return new Promise((resolve, reject) => {
-    const absolutePath = path.resolve(route);
-    fs.access(absolutePath, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(absolutePath);
-      }
-    });
+const toAbsolute = (route) => new Promise((resolve, reject) => {
+  const absolutePath = path.resolve(route);
+  fs.access(absolutePath, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(absolutePath);
+    }
   });
-}
+});
 
 module.exports = {
   toAbsolute,

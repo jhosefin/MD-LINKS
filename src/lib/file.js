@@ -8,6 +8,7 @@ function extractLinksFromFile(filePath) {
       if (err) {
         reject(err);
       } else {
+        //esta expresión regular se utiliza para encontrar y extraer enlaces que siguen el formato [texto](URL) dentro de un texto.
         const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
         const links = [];
         let match = linkRegex.exec(data);
@@ -18,10 +19,6 @@ function extractLinksFromFile(filePath) {
           const ruta = absolutePath;
           links.push({ text, url, ruta });
           match = linkRegex.exec(data);
-        }
-
-        if (links.length === 0) {
-          console.log("No se encontraron enlaces en el archivo: " + filePath);
         }
         resolve(links);
       }

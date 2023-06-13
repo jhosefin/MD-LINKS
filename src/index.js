@@ -1,5 +1,4 @@
 const {
-  isDirectory,
   isFile,
   readDirectoryRecursively,
   searchMd,
@@ -11,14 +10,12 @@ const { validateLinks } = require("./lib/validate")
 const MdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
     if (!isPathValid(path)) {
-      console.log("La ruta ingresada no existe");
-      return;
+      reject(error);
     }
 
     const absolutePath = isAbsolutePath(path) ? path : toAbsolute(path);
     if (!absolutePath) {
-      console.log("No se pudo convertir la ruta a absoluta");
-      return;
+      reject(error);
     }
 
     if (isFile(absolutePath)) {
@@ -29,7 +26,6 @@ const MdLinks = (path, options) => {
               validateLinks(links)
                 .then((validatedLinks) => resolve(validatedLinks))
                 .catch((error) => {
-                  console.error("Error al validar los enlaces:", error);
                   reject(error);
                 });
             } else {
@@ -37,7 +33,6 @@ const MdLinks = (path, options) => {
             }
           })
           .catch((error) => {
-            console.error("Error al extraer los enlaces del archivo:", error);
             reject(error);
           });
       } else {
@@ -57,11 +52,8 @@ const MdLinks = (path, options) => {
           if (options && options.validate) {
             validateLinks(links)
               .then((validatedLinks) => {
-                console.log("entrando a validar")
-                console.log(validatedLinks)
                 resolve(validatedLinks)})
               .catch((error) => {
-                console.error("Error al validar los enlaces:", error);
                 reject(error);
               });
           } else {
@@ -69,7 +61,6 @@ const MdLinks = (path, options) => {
           }
         })
         .catch((error) => {
-          console.error("Error al extraer los enlaces de los archivos:", error);
           reject(error);
         });
     } else {

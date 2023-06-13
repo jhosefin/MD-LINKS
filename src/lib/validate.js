@@ -1,37 +1,42 @@
 const axios = require('axios')
 
 function validateLinks(array) {
-  const requests = array.map((element) =>
-    axios
-      .get(element.url)
-      .then((res) => {
-        const respuesta = res.status;
-        if (respuesta >= 200 && respuesta <= 400) {
-          return {
-            href: element.url,
-            text: element.text,
-            file: element.ruta,
-            status: respuesta,
-            ok: "ok",
-          };
-        } else {
-          return {
-            href: element.url,
-            text: element.text,
-            file: element.ruta,
-            /* status: respuesta,
-            ok: "fail", */
-          };
-        }
-      })
-      .catch((error) => ({
-        href: element.url,
-        text: element.text,
-        file: element.ruta,
-        status: error.response ? error.response.status : null,
-        ok: "fail",
-      }))
-  );
+  const requests = array.reduce((acc, links) => {
+    const linkRequests = links.map((link) => {
+      return axios
+        .get(link.url)
+        .then((res) => {
+          const respuesta = res.status;
+          if (respuesta >= 200 && respuesta <= 400) {
+            return {
+              href: link.url,
+              text: link.text,
+              file: link.ruta,
+              status: respuesta,
+              ok: "ok",
+            };
+          } else {
+            return {
+              href: link.url,
+              text: link.text,
+              file: link.ruta,
+              status: respuesta,
+              ok: "fail",
+            };
+          }
+        })
+        .catch((error) => ({
+          href: link.url,
+          text: link.text,
+          file: link.ruta,
+          status: error.response ? error.response.status : null,
+          ok: "fail",
+        }));
+    });
+
+    return [...acc, ...linkRequests];
+  }, []);
+
   return Promise.all(requests);
 }
 

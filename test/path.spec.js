@@ -1,4 +1,21 @@
 const { isAbsolutePath, isPathValid, toAbsolute } = require("../src/lib/path");
+const fs = require("fs");
+
+jest.mock("fs", () => ({
+  access: jest.fn((path, callback) => {
+    // Simular aquí el comportamiento de fs.access
+    if (path === "/test-files") {
+      callback(null);
+    } else {
+      callback(new Error("Path does not exist"));
+    }
+  }),
+  realpath: jest.fn((path, callback) => {
+    // Simular aquí el comportamiento de fs.realpath
+    const absolutePath = "C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\good-links.md";
+    callback(null, absolutePath);
+  }),
+}));
 
 describe("isAbsolutePath", () => {
   test("should return true for absolute path", () => {
@@ -43,3 +60,4 @@ describe("toAbsolute", () => {
     return expect(toAbsolute(route)).rejects.toThrow();
   });
 });
+

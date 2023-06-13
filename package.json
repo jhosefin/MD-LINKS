@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "md-links-path",
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
@@ -10,7 +10,7 @@
     "eslint-config-airbnb": "^19.0.4"
   },
   "description": "md links",
-  "main": "index.js",
+  "main": "src/index2.js",
   "directories": {
     "test": "test"
   },
@@ -25,5 +25,8 @@
     "test": "jest --coverage"
   },
   "author": "Rebeca Martinez <rebej1022@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "bin": {
+    "md-links": "src/cli.js"
+  }
 }

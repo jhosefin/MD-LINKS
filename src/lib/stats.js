@@ -26,9 +26,9 @@ const stats = (array) => {
 
 const broken = (array) => {
   let elements = []
-  array.forEach((element) => { elements.push(element.value.href) })
+  array.forEach((element) => { elements.push(element.href) })
   const unique = [... new Set(elements)]
-  const broken = array.filter((element) => element.value.ok === 'fail')
+  const broken = array.filter((element) => element.ok === 'fail')
     return {
       total: elements.length,
       unique: unique.length,

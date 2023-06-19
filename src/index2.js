@@ -45,4 +45,5 @@ const MdLinks2 = (path, options) => {
 
 module.exports = {
   MdLinks2,
+  ArrayFiles,
 };

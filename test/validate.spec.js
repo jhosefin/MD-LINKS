@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { validateLinks } = require('./your-module');
+const { validateLinks } = require('../src/lib/validate');
 
 jest.mock('axios');
 
@@ -14,36 +14,37 @@ describe('validateLinks', () => {
         {
           text: 'Repo Aiep 1',
           url: 'https://github.com/jhosefin/AIEP-Repo-Proyecto',
-          ruta: 'C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\carpeta\\carpeta2\\archivoprueba.md',
+          ruta: 'test-files\\carpeta\\carpeta2\\archivoprueba.md',
         },
       ],
       [
         {
           text: 'Repo Aiep 2',
           url: 'https://github.com/jhosefin/AIEP-Repo-Proyectos',
-          ruta: 'C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\carpeta\\carpeta2\\carpeta3\\otro.md',
+          ruta: 'test-files\\carpeta\\carpeta2\\carpeta3\\otro.md',
         },
       ],
     ];
 
-    const mockResponse = { status: 200 };
-    axios.get.mockResolvedValue(mockResponse);
+    const mockResponse1 = { status: 200 };
+    const mockResponse2 = { response: { status: 404 } };
+    axios.get.mockResolvedValueOnce(mockResponse1).mockRejectedValueOnce(mockResponse2);
 
     return validateLinks(links).then((results) => {
       expect(results).toEqual([
         {
           href: 'https://github.com/jhosefin/AIEP-Repo-Proyecto',
           text: 'Repo Aiep 1',
-          file: 'C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\carpeta\\carpeta2\\archivoprueba.md',
+          file: 'test-files\\carpeta\\carpeta2\\archivoprueba.md',
           status: 200,
           ok: 'ok',
         },
         {
           href: 'https://github.com/jhosefin/AIEP-Repo-Proyectos',
           text: 'Repo Aiep 2',
-          file: 'C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\carpeta\\carpeta2\\carpeta3\\otro.md',
-          status: 200,
-          ok: 'ok',
+          file: 'test-files\\carpeta\\carpeta2\\carpeta3\\otro.md',
+          status: 404,
+          ok: 'fail',
         },
       ]);
 
@@ -51,6 +52,8 @@ describe('validateLinks', () => {
       expect(axios.get).toHaveBeenCalledTimes(2);
       expect(axios.get).toHaveBeenCalledWith('https://github.com/jhosefin/AIEP-Repo-Proyecto');
       expect(axios.get).toHaveBeenCalledWith('https://github.com/jhosefin/AIEP-Repo-Proyectos');
-    });
+    })
   });
 });
+
+

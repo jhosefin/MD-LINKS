@@ -9,7 +9,7 @@ function extractLinksFromFile(filePath) {
         reject(err);
       } else {
         //esta expresión regular se utiliza para encontrar y extraer enlaces que siguen el formato [texto](URL) dentro de un texto.
-        const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+        const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
         const links = [];
         let match = linkRegex.exec(data);
 

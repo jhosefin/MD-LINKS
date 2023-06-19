@@ -20,7 +20,7 @@ function validateLinks(array) {
               href: link.url,
               text: link.text,
               file: link.ruta,
-              status: respuesta,
+              status: res.status,
               ok: "fail",
             };
           }

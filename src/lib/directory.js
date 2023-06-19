@@ -13,7 +13,6 @@ function isFile(filePath) {
     // Para ello, utilizamos el método `stats.isFile()`, que devuelve `true` si es un archivo regular, y `false` en caso contrario.
     return stats.isFile();
   } catch (error) {
-    console.log(error);
     // Devolvemos `false` para indicar que el archivo no existe o no es accesible.
     return false;
   }

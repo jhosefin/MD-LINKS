@@ -1,8 +1,33 @@
+//Antiguamente se utilizaba un fichero .eslintrc
+//sin extensión (que realmente era un YAML o JSON).
+// Sin embargo, ESLint marca esta posibilidad como obsoleta,
+// por lo que se recomienda utilizar una de las tres opciones js,yam,json.
 {
   "env": {
-    "node": true
+    "node": true,
+    "commonjs": true,
+    "browser": true,
+    "es2021": true
   },
   "parserOptions": {
-    "ecmaVersion": 8
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "extends":[
+  "airbnb-base",
+  "eslint:recommended",
+  "plugin:jest/recommended"
+  ],
+  "overrides": [
+  ],
+    "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "windows"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"]
   }
 }
+//https://lenguajejs.com/javascript/calidad-de-codigo/eslint/

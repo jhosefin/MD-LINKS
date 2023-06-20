@@ -1,14 +1,14 @@
 const axios = require('axios')
 
 function validateLinks(array) {
-  const requests = array.reduce((acc, links) => {
-    const linkRequests = links.map((link) => {
+    const requests = array.map((link) => {
       return axios
         .get(link.url)
         .then((res) => {
           const respuesta = res.status;
           if (respuesta >= 200 && respuesta <= 400) {
             return {
+              line: link.line,
               href: link.url,
               text: link.text,
               file: link.ruta,
@@ -17,6 +17,7 @@ function validateLinks(array) {
             };
           } else {
             return {
+              line: link.line,
               href: link.url,
               text: link.text,
               file: link.ruta,
@@ -26,6 +27,7 @@ function validateLinks(array) {
           }
         })
         .catch((error) => ({
+          line: link.line,
           href: link.url,
           text: link.text,
           file: link.ruta,
@@ -33,9 +35,6 @@ function validateLinks(array) {
           ok: "fail",
         }));
     });
-
-    return [...acc, ...linkRequests];
-  }, []);
 
   return Promise.all(requests);
 }

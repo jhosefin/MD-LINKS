@@ -1,15 +1,11 @@
-// Importación de los módulos 'fs' y 'path' para trabajar con el sistema de archivos y las rutas en Node.js.
 const fs = require("fs");
 const path = require("path");
 
 // Verifica si la ruta es un archivo
 function isFile(filePath) {
   try {
-    // Utilizamos la función `fs.statSync` para obtener información sobre el archivo especificado por `filePath`.
     // Esta función devuelve un objeto que contiene información sobre el archivo, como tamaño, permisos, etc.
     const stats = fs.statSync(filePath);
-
-    // Comprobamos si el archivo existe y es un archivo regular (no un directorio u otro tipo de archivo).
     // Para ello, utilizamos el método `stats.isFile()`, que devuelve `true` si es un archivo regular, y `false` en caso contrario.
     return stats.isFile();
   } catch (error) {

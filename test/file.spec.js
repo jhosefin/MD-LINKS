@@ -4,7 +4,10 @@ describe("extractLinksFromFile", () => {
   test("should extract links from file", () => {
     const filePath = "./test-files/good-links.md";
     const expectedLinks = [
-      { text: "Repo Aiep 6", url: "https://github.com/jhosefin/AIEP-Repo-Proyectos", ruta: "C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\good-links.md" },
+      {
+      line: 1, text: "Repo Aiep 6",
+      url: "https://github.com/jhosefin/AIEP-Repo-Proyectos",
+      ruta: "./test-files/good-links.md" },
     ];
     return expect(extractLinksFromFile(filePath)).resolves.toEqual(expectedLinks);
   });

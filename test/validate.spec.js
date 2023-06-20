@@ -10,20 +10,16 @@ describe('validateLinks', () => {
 
   test('should validate links and return results', () => {
     const links = [
-      [
         {
           text: 'Repo Aiep 1',
           url: 'https://github.com/jhosefin/AIEP-Repo-Proyecto',
           ruta: 'test-files\\carpeta\\carpeta2\\archivoprueba.md',
         },
-      ],
-      [
         {
           text: 'Repo Aiep 2',
           url: 'https://github.com/jhosefin/AIEP-Repo-Proyectos',
           ruta: 'test-files\\carpeta\\carpeta2\\carpeta3\\otro.md',
         },
-      ],
     ];
 
     const mockResponse1 = { status: 200 };

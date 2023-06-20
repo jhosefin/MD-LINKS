@@ -1,74 +1,61 @@
-const { MdLinks2, ArrayFiles } = require('../src/index2');
+const axios = require("axios");
+const { MdLinks2, ArrayFiles } = require("../src/index");
 
-describe('ArrayFiles', () => {
-  test('debe retornar un array de links', () => {
-    const file = 'test-files/good-links.md';
-    return ArrayFiles(file)
-    .then((result) => {
-      expect(result).toEqual([[
-        {"ruta": "C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\good-links.md",
-        "text": "Repo Aiep 6",
-        "url": "https://github.com/jhosefin/AIEP-Repo-Proyectos"}
-      ]])
-    })
-    .catch(error => {
-        
-      throw error;
-    });
-  })
-})
+jest.mock("axios");
 
-describe('MdLinks2', () => {
-  test('debería resolver correctamente sin opción de validación', () => {
-    const path = 'test-files/good-links.md';
+describe("ArrayFiles", () => {
+  test("debe retornar un array de links", () => {
+    const file = "test-files/good-links.md";
+    const link = [
+      {
+        line: 1,
+        ruta: "test-files/good-links.md",
+        text: "Repo Aiep 6",
+        url: "https://github.com/jhosefin/AIEP-Repo-Proyectos",
+      },
+    ];
+    return expect(ArrayFiles(file)).resolves.toEqual(link);
+  });
+});
+
+describe("MdLinks2", () => {
+  test("debería resolver correctamente sin opción de validación", () => {
+    const path = "test-files/good-links.md";
     const options = { validate: false };
-
-    return MdLinks2(path, options)
-      .then(result => {
-        
-        expect(result).toEqual([[
-          {"ruta": "C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\good-links.md",
-          "text": "Repo Aiep 6",
-          "url": "https://github.com/jhosefin/AIEP-Repo-Proyectos"}
-        ]]);
-      })
-      .catch(error => {
-        
-        throw error;
-      });
+    const link = [
+      {
+        line: 1,
+        ruta: "test-files/good-links.md",
+        text: "Repo Aiep 6",
+        url: "https://github.com/jhosefin/AIEP-Repo-Proyectos",
+      },
+    ];
+    return expect(MdLinks2(path, options)).resolves.toEqual(link);
   });
 
-  test('debería resolver correctamente con opción de validación', () => {
-    const path = 'test-files/good-links.md';
+  test("debería resolver correctamente con opción de validación", () => {
+    const path = "test-files/good-links.md";
     const options = { validate: true };
 
-    return MdLinks2(path, options)
-      .then(result => {
-        expect(result).toEqual([
-          {"file": "C:\\Users\\Rebeca\\Desktop\\Laboratoria\\Proyecto 4\\MD-LINKS\\test-files\\good-links.md",
-          "href": "https://github.com/jhosefin/AIEP-Repo-Proyectos",
-          "ok": "ok",
-          "status": 200,
-          "text": "Repo Aiep 6",}
-        ]);
-      })
-      .catch(error => {
-        throw error;
-      });
+    // Mock de Axios para simular la respuesta de la solicitud HTTP
+    axios.get.mockResolvedValueOnce({ status: 200 });
+    const link = [
+      {
+        file: "test-files/good-links.md",
+        href: "https://github.com/jhosefin/AIEP-Repo-Proyectos",
+        line: 1,
+        ok: "ok",
+        status: 200,
+        text: "Repo Aiep 6",
+      },
+    ];
+    return expect(MdLinks2(path, options)).resolves.toEqual(link);
   });
 
-  test('debería rechazar la promesa si el path es inválido', () => {
-    const path = 'invalid-path';
+  test("debería rechazar la promesa si el path es inválido", () => {
+    const path = "invalid-path";
     const options = { validate: undefined };
 
-    return MdLinks2(path, options)
-      .then(result => {
-        // Si la promesa se resuelve, la prueba debería fallar
-        throw new Error('La promesa debería haber sido rechazada');
-      })
-      .catch(error => {
-        // Realiza las comprobaciones correspondientes en el error
-        return expect(MdLinks2(path, options)).rejects.toEqual(error);
-      });
+    return expect(MdLinks2(path, options)).rejects.toThrow();
   });
 });

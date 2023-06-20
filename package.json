@@ -8,7 +8,8 @@
   "dependencies": {
     "axios": "^1.4.0",
     "cli-color": "^2.0.3",
-    "eslint-config-airbnb": "^19.0.4"
+    "eslint-config-airbnb": "^19.0.4",
+    "md-links-path": "github:jhosefin/MD-LINKS"
   },
   "description": "md links",
   "main": "src/index.js",

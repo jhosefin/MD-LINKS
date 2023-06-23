@@ -9,6 +9,7 @@ La libreria md-links necesita ingresar una ruta absoluta o relativa de un archiv
   Utilizar el comando '--stats' o '-s' para contabilizar la cantidad total de links y links unicos encontrados en los archivos.
   Utilizar la mezcla de ambos comandos para contabilizar cuántos links 'rotos' existen.
 <img src="diagrama.png">
+
 ## Instalación
 
 Para instalar y utilizar MD-Links, sigue estos pasos:
@@ -20,34 +21,4 @@ Para instalar y utilizar MD-Links, sigue estos pasos:
 ```bash
 npm install md-links-jhosefin
 
-## 9. Checklist
 
-### General
-
-* [x] Puede instalarse via `npm install --global <github-user>/md-links`
-
-### `README.md`
-
-* [x] Un board con el backlog para la implementación de la librería.
-* [x] Documentación técnica de la librería.
-* [x] Guía de uso e instalación de la librería
-
-### API `mdLinks(path, opts)`
-
-* [x] El módulo exporta una función con la interfaz (API) esperada.
-* [x] Implementa soporte para archivo individual
-* [x] Implementa soporte para directorios
-* [x] Implementa `options.validate`
-
-### CLI
-
-* [x] Expone ejecutable `md-links` en el path (configurado en `package.json`)
-* [x] Se ejecuta sin errores / output esperado
-* [x] Implementa `--validate`
-* [x] Implementa `--stats`
-
-### Pruebas / tests
-
-* [x] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
-  lines, y branches.
-* [x] Pasa tests (y linters) (`npm test`).

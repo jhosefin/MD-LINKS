@@ -5,7 +5,7 @@ function validateLinks(array) {
     .get(link.url)
     .then((res) => {
       const respuesta = res.status;
-      if (respuesta >= 200 && respuesta <= 400) {
+      if (respuesta >= 200 && respuesta <= 399) {
         return {
           line: link.line,
           href: link.url,
